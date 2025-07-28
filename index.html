@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtividade com IA - Recupere seu tempo e aumente sua produtividade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(0 0% 5%)',
+                        foreground: 'hsl(0 0% 98%)',
+                        card: 'hsl(0 0% 8%)',
+                        'card-foreground': 'hsl(0 0% 98%)',
+                        primary: 'hsl(262 83% 58%)',
+                        'primary-foreground': 'hsl(0 0% 98%)',
+                        secondary: 'hsl(240 3.7% 15.9%)',
+                        'secondary-foreground': 'hsl(0 0% 98%)',
+                        muted: 'hsl(240 3.7% 15.9%)',
+                        'muted-foreground': 'hsl(240 5% 64.9%)',
+                        accent: 'hsl(240 3.7% 15.9%)',
+                        'accent-foreground': 'hsl(0 0% 98%)',
+                        destructive: 'hsl(0 84.2% 60.2%)',
+                        'destructive-foreground': 'hsl(0 0% 98%)',
+                        border: 'hsl(240 3.7% 25%)',
+                        input: 'hsl(240 3.7% 15.9%)',
+                        ring: 'hsl(262 83% 58%)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: hsl(0 0% 5%);
+            color: hsl(0 0% 98%);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(262 83% 45%) 100%);
+        }
+        .hero-pattern {
+            background-image: radial-gradient(circle at 25% 25%, hsl(262 83% 58% / 0.1) 0%, transparent 50%),
+                            radial-gradient(circle at 75% 75%, hsl(262 83% 58% / 0.1) 0%, transparent 50%);
+        }
+        .testimonial-card {
+            background: linear-gradient(145deg, hsl(0 0% 8%) 0%, hsl(240 3.7% 15.9%) 100%);
+        }
+        .price-highlight {
+            background: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(262 83% 45%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card {
+            background-color: hsl(0 0% 8%);
+            border: 1px solid hsl(240 3.7% 25%);
+        }
+        .btn-primary {
+            background-color: hsl(262 83% 58%);
+            color: hsl(0 0% 98%);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: hsl(262 83% 52%);
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: hsl(0 0% 98%);
+            border: 1px solid hsl(240 3.7% 25%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background-color: hsl(240 3.7% 15.9%);
+        }
+        .badge {
+            background-color: hsl(240 3.7% 15.9%);
+            color: hsl(0 0% 98%);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .badge-destructive {
+            background-color: hsl(0 84.2% 60.2%);
+            color: hsl(0 0% 98%);
+        }
+        .mobile-menu {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            .mobile-menu-button {
+                display: block;
+            }
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+        .accordion-item {
+            border-bottom: 1px solid hsl(240 3.7% 25%);
+        }
+        .accordion-trigger {
+            width: 100%;
+            text-align: left;
+            padding: 16px 0;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion-content {
+            display: none;
+            padding-bottom: 16px;
+            color: hsl(240 5% 64.9%);
+        }
+        .accordion-content.active {
+            display: block;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: hsl(240 3.7% 15.9%);
+            height: 8px;
+            border-radius: 4px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: hsl(262 83% 58%);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: hsl(262 83% 58%);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-black/95 backdrop-blur-sm border-b border-gray-800 z-50">
+        <!-- Promotional Banner -->
+        <div class="gradient-bg text-white text-center py-2 text-sm">
+            Use o cupom <strong>DESCONTO100</strong> para R$100 de desconto
+        </div>
+
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold text-white">Produtividade com IA</div>
+
+                <!-- Desktop Navigation -->
+                <div class="desktop-nav hidden md:flex items-center space-x-6">
+                    <a href="#problema" class="text-gray-300 hover:text-purple-400 transition-colors">O Problema</a>
+                    <a href="#solucao" class="text-gray-300 hover:text-purple-400 transition-colors">A Solução</a>
+                    <a href="#modulos" class="text-gray-300 hover:text-purple-400 transition-colors">Módulos</a>
+                    <a href="#perguntas" class="text-gray-300 hover:text-purple-400 transition-colors">FAQ</a>
+                    <button onclick="document.getElementById('investimento').scrollIntoView({behavior: 'smooth'})" class="btn-primary">
+                        Recuperar Meu Tempo
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-button md:hidden text-white" onclick="toggleMobileMenu()">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="mobile-menu md:hidden mt-4 space-y-4">
+                <a href="#problema" class="block py-2 text-gray-300 hover:text-purple-400 transition-colors">O Problema</a>
+                <a href="#solucao" class="block py-2 text-gray-300 hover:text-purple-400 transition-colors">A Solução</a>
+                <a href="#modulos" class="block py-2 text-gray-300 hover:text-purple-400 transition-colors">Módulos</a>
+                <a href="#perguntas" class="block py-2 text-gray-300 hover:text-purple-400 transition-colors">FAQ</a>
+                <button onclick="document.getElementById('investimento').scrollIntoView({behavior: 'smooth'})" class="btn-primary w-full">
+                    Recuperar Meu Tempo
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 hero-pattern">
+        <div class="container mx-auto px-4 text-center">
+            <div class="badge mb-6">Recupere seu tempo</div>
+
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
+                O KIT DE IA QUE VAI 
+                <span class="price-highlight">TRIPLICAR SUA PRODUTIVIDADE</span> 
+                EM MINUTOS – 
+                <span class="price-highlight">SEM GASTAR COM FERRAMENTAS CARAS</span>
+            </h1>
+
+            <p class="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+                Você ainda tá perdendo tempo com tarefas manuais? Descubra as ferramentas de IA que os top players usam pra automatizar tudo e ganhar tempo – mesmo sem saber nada de tecnologia.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <button onclick="document.getElementById('investimento').scrollIntoView({behavior: 'smooth'})" class="btn-primary text-lg px-8 py-4 font-bold">
+                    🔥 Quero Desbloquear Meu Acesso e Começar a Usar IA a Meu Favor
+                </button>
+                <button onclick="document.getElementById('modulos').scrollIntoView({behavior: 'smooth'})" class="btn-outline text-lg px-8 py-4">
+                    Ver Programa Completo
+                </button>
+            </div>
+
+            <div class="mt-12">
+                <img src="https://produtividade.caioia.com/assets/hero-Bg4US2pd.png" alt="Produtividade com IA" class="mx-auto max-w-full h-auto rounded-lg shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+    <!-- Productivity Calculator -->
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="badge mb-4">Calculadora de Produtividade</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+                    Descubra Quanto Tempo Você Está Perdendo
+                </h2>
+                <p class="text-lg text-gray-400">
+                    Calcule exatamente quantas horas você pode recuperar por semana
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="card p-8 rounded-lg">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-semibold mb-4 text-white">Seus Dados:</h3>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-300">Horas trabalhadas por dia:</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" min="4" max="12" value="8" id="hoursRange" class="flex-1" onchange="updateCalculator()">
+                                    <span class="text-purple-400 font-bold w-12" id="hoursValue">8h</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-300">Dias trabalhados por semana:</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" min="3" max="7" value="5" id="daysRange" class="flex-1" onchange="updateCalculator()">
+                                    <span class="text-purple-400 font-bold w-12" id="daysValue">5 dias</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-300">% do tempo em tarefas manuais/repetitivas:</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" min="20" max="90" value="60" id="manualRange" class="flex-1" onchange="updateCalculator()">
+                                    <span class="text-purple-400 font-bold w-12" id="manualValue">60%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <h3 class="text-xl font-semibold mb-4 text-white">Seus Resultados:</h3>
+
+                            <div class="space-y-4">
+                                <div class="bg-red-900/20 p-4 rounded-lg border border-red-500/20">
+                                    <div class="text-2xl font-bold text-red-400" id="hoursWasted">24.0h</div>
+                                    <div class="text-sm text-gray-400">desperdiçadas por semana</div>
+                                </div>
+
+                                <div class="bg-purple-900/20 p-4 rounded-lg border border-purple-500/20">
+                                    <div class="text-2xl font-bold text-purple-400" id="hoursRecovered">7.0h</div>
+                                    <div class="text-sm text-gray-400">que você pode recuperar</div>
+                                </div>
+
+                                <div class="bg-purple-900/20 p-4 rounded-lg border border-purple-500/20">
+                                    <div class="text-2xl font-bold text-purple-400" id="daysPerYear">45 dias</div>
+                                    <div class="text-sm text-gray-400">livres por ano</div>
+                                </div>
+
+                                <div class="bg-purple-900/20 p-4 rounded-lg border border-purple-500/20">
+                                    <div class="text-2xl font-bold text-purple-400" id="moneyValue">R$ 18.200</div>
+                                    <div class="text-sm text-gray-400">valor do seu tempo recuperado/ano</div>
+                                </div>
+                            </div>
+
+                            <button onclick="document.getElementById('investimento').scrollIntoView({behavior: 'smooth'})" class="btn-primary w-full">
+                                Quero Desbloquear Meu Acesso Agora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problema" class="py-16 bg-gray-800/50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="badge badge-destructive mb-4">O Problema</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+                    Você está trocando sua vida por tarefas que uma IA poderia fazer em segundos
+                </h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    A MCKINSEY COMPROVOU: A matemática é implacável e os números não mentem.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="card text-center p-6 rounded-lg">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">60-70%</div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">do seu tempo</h3>
+                    <p class="text-gray-400">É gasto em tarefas que poderiam ser automatizadas por inteligência artificial, segundo estudo da McKinsey Global Institute.</p>
+                </div>
+
+                <div class="card text-center p-6 rounded-lg">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">28</div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">horas desperdiçadas</h3>
+                    <p class="text-gray-400">Em uma semana de 40 horas. São 1.456 horas por ano - o equivalente a 60 DIAS INTEIROS da sua vida desperdiçados anualmente.</p>
+                </div>
+
+                <div class="card text-center p-6 rounded-lg">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">40%</div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">aumento na produtividade</h3>
+                    <p class="text-gray-400">Profissionais que dominam ferramentas de IA aumentam sua produtividade em até 40%, segundo pesquisa das universidades de Harvard e Stanford.</p>
+                </div>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="card p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-white">Você reconhece estes sintomas?</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <svg class="h-5 w-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300">Sensação constante de que o dia deveria ter mais horas</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="h-5 w-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300">Trabalho se estendendo para noites e fins de semana</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="h-5 w-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300">Sobrecarga de informações e dificuldade para organizá-las</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="h-5 w-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300">Frustração ao ver outros produzindo mais em menos tempo</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="h-5 w-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300">Ansiedade sobre como acompanhar as mudanças tecnológicas</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="h-5 w-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-300">Sem tempo para projetos pessoais ou para a família</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solucao" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="badge mb-4">A Solução</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+                    Introduzindo: Produtividade com IA
+                </h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    O primeiro método completo para dominar ferramentas de IA e recuperar seu tempo
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 text-white">O Método 7-7-7</h3>
+                    <p class="text-lg mb-8 text-gray-300">
+                        Em apenas 7 dias, você dominará 7 ferramentas poderosas que vão recuperar, no mínimo, 7 horas da sua semana.
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="card p-6 rounded-lg text-center">
+                            <h4 class="text-xl font-semibold mb-3 text-white">Fluxos</h4>
+                            <p class="text-gray-400">Processos otimizados para cada tipo de tarefa</p>
+                        </div>
+                        <div class="card p-6 rounded-lg text-center">
+                            <h4 class="text-xl font-semibold mb-3 text-white">Ferramentas</h4>
+                            <p class="text-gray-400">As 7 IAs certas para os problemas certos</p>
+                        </div>
+                        <div class="card p-6 rounded-lg text-center">
+                            <h4 class="text-xl font-semibold mb-3 text-white">Fundamentos</h4>
+                            <p class="text-gray-400">Princípios para implementação rápida</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="document.getElementById('investimento').scrollIntoView({behavior: 'smooth'})" class="btn-primary text-lg px-8 py-4">
+                        Quero Recuperar Meu Tempo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section id="modulos" class="py-16 bg-gray-800/50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="badge mb-4">Programa Completo</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+                    7 Dias, 7 Módulos, Transformação Completa
+                </h2>
+                <p class="text-lg text-gray-400">
+                    Cada dia do programa foi projetado para dominar uma ferramenta específica e implementá-la imediatamente
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Module 1 -->
+                <div class="card overflow-hidden rounded-lg">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-1/3 p-8 flex justify-center">
+                            <img src="https://produtividade.caioia.com/assets/chatgpt-BedsDnf-.png" alt="ChatGPT Logo" class="w-24 h-24 object-contain">
+                        </div>
+                        <div class="w-full md:w-2/3 p-8">
+                            <div class="badge mb-4">Dia 1</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white">ChatGPT - A Ferramenta Fundamental</h3>
+                            <p class="text-gray-400 mb-6">Domine a engenharia de prompts para obter resultados superiores em qualquer tarefa de escrita e comunicação.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Técnicas avançadas de engenharia de prompts para resultados otimizados</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Criação de conteúdo com Canvas (Lousa) para texto e código</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Personalização do ChatGPT e criação de GPTs personalizados</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="font-semibold text-purple-400">AÇÃO IMEDIATA: Implementação do primeiro fluxo de trabalho com prompts eficientes</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="card overflow-hidden rounded-lg">
+                    <div class="flex flex-col md:flex-row-reverse items-center">
+                        <div class="w-full md:w-1/3 p-8 flex justify-center">
+                            <img src="https://produtividade.caioia.com/assets/notebook-lm-DWdPtJyf.png" alt="Notebook LM Logo" class="w-24 h-24 object-contain">
+                        </div>
+                        <div class="w-full md:w-2/3 p-8">
+                            <div class="badge mb-4">Dia 2</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white">Notebook LM - Seu Sistema de Pesquisa e Organização</h3>
+                            <p class="text-gray-400 mb-6">Crie um sistema que organiza informações automaticamente e transforma conhecimento fragmentado em podcasts e insights acionáveis.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Como consolidar diversas fontes de informação em um único ambiente</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Geração de podcasts realistas para consumo de conteúdo em qualquer lugar</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Transformação de conhecimento fragmentado em insights organizados</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="font-semibold text-purple-400">AÇÃO IMEDIATA: Construção do seu primeiro notebook com múltiplas fontes</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="card overflow-hidden rounded-lg">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="w-full md:w-1/3 p-8 flex justify-center">
+                            <img src="https://produtividade.caioia.com/assets/gamma-DvXmLM6R.png" alt="Gamma Logo" class="w-24 h-24 object-contain">
+                        </div>
+                        <div class="w-full md:w-2/3 p-8">
+                            <div class="badge mb-4">Dia 3</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white">Gamma - A Ferramenta de Apresentações</h3>
+                            <p class="text-gray-400 mb-6">Crie apresentações, propostas e documentos profissionais em minutos, eliminando horas de formatação e design.</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Criação rápida de apresentações profissionais com IA</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Transformação de textos em slides formatados automaticamente</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="text-gray-300">Publicação de sites e compartilhamento facilitado de conteúdo</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <span class="font-semibold text-purple-400">AÇÃO IMEDIATA: Desenvolvimento da sua primeira apresentação com IA</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">O Que Dizem Nossos Alunos</h2>
+                <p class="text-lg text-gray-400">Pessoas Reais, Resultados Reais</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card h-full p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold mr-4">G</div>
+                        <div>
+                            <h4 class="font-semibold text-white">Guilherme F.</h4>
+                        </div>
+                    </div>
+                    <blockquote class="text-gray-400 mb-4">
+                        "Eu não assisti todos os cursos ainda mas estou adorando cada video. Estou assistindo em ordem aleatoria, sem sequencia, vou de acordo com minha necessidade da semana."
+                    </blockquote>
+                    <div class="badge">Flexibilidade total de aprendizado</div>
+                </div>
+
+                <div class="testimonial-card h-full p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold mr-4">D</div>
+                        <div>
+                            <h4 class="font-semibold text-white">Daniel</h4>
+                        </div>
+                    </div>
+                    <blockquote class="text-gray-400 mb-4">
+                        "É um curso diferenciado no mercado e eu já fiz alguns outros cursos, mas sempre procurei o curso mais prático, o que me desce a maior autonomia e um entendimento rápido das ferramentas."
+                    </blockquote>
+                    <div class="badge">Autonomia e praticidade</div>
+                </div>
+
+                <div class="testimonial-card h-full p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold mr-4">M</div>
+                        <div>
+                            <h4 class="font-semibold text-white">Manuel C.</h4>
+                        </div>
+                    </div>
+                    <blockquote class="text-gray-400 mb-4">
+                        "Baita curso! Ajudando a diminuir a procrastinação e perda de foco com ferramentas e soluções práticas. Agora posso repetir de forma estruturada o que antes tentava de forma empírica, trazendo resultados surpreendentes!"
+                    </blockquote>
+                    <div class="badge">Resultados surpreendentes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Section -->
+    <section id="investimento" class="py-16 bg-gray-800/50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="badge mb-4">Investimento</div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+                    Investimento Que Retorna Antes do Próximo Fim de Semana
+                </h2>
+                <p class="text-lg text-gray-400">
+                    Recupere seu tempo e aumente sua produtividade com o método comprovado
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="card mb-8 p-6 rounded-lg">
+                    <h3 class="text-center text-xl font-semibold mb-6 text-white">O valor completo do PRODUTIVIDADE COM IA:</h3>
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                            <span class="text-gray-300">Módulo - ChatGPT - A Ferramenta Fundamental</span>
+                            <span class="font-semibold text-white">R$197,00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                            <span class="text-gray-300">Módulo - Notebook LM - Sistema de Pesquisa e Organização</span>
+                            <span class="font-semibold text-white">R$97,00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                            <span class="text-gray-300">Módulo - Gamma - Ferramenta de Apresentações</span>
+                            <span class="font-semibold text-white">R$97,00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                            <span class="text-gray-300">Módulo - Fathom - Assistente de Reuniões</span>
+                            <span class="font-semibold text-white">R$47,00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                            <span class="text-gray-300">Módulo - Perplexity - Assistente de Pesquisa Avançada</span>
+                            <span class="font-semibold text-white">R$97,00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                            <span class="text-gray-300">Módulo - Midjourney e Ferramentas Visuais</span>
+                            <span class="font-semibold text-white">R$197,00</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                            <span class="text-gray-300">Módulo - Integração pelo Método FFF</span>
+                            <span class="font-semibold text-white">Inestimável</span>
+                        </div>
+                    </div>
+                    <div class="text-center border-t border-gray-700 pt-4">
+                        <span class="text-lg text-gray-300">Valor Total: </span>
+                        <span class="text-2xl font-bold text-white">R$732,00</span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-white">BÔNUS #1: Compilado de 200 IAs</h3>
+                        <p class="text-gray-400 mb-4">
+                            Acesso a um diretório completo com 200 ferramentas de IA categorizadas por caso de uso.
+                        </p>
+                        <p class="font-semibold text-white">Valor: R$497,00</p>
+                    </div>
+
+                    <div class="card p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-white">BÔNUS #2: Assistentes e GPTs para produtividade</h3>
+                        <p class="text-gray-400 mb-4">
+                            Coleção de assistentes personalizados e GPTs especializados para maximizar sua produtividade.
+                        </p>
+                        <p class="font-semibold text-white">Valor: R$397,00</p>
+                    </div>
+                </div>
+
+                <div class="gradient-bg text-white text-center p-8 rounded-lg mb-8">
+                    <div class="badge mb-4" style="background-color: rgba(255,255,255,0.2);">Oferta de Lançamento</div>
+                    <h3 class="text-2xl font-bold mb-4">Investimento Único:</h3>
+                    <div class="mb-6">
+                        <div class="text-lg line-through opacity-75">R$1.626,00</div>
+                        <div class="text-4xl font-bold mb-2">R$23,90</div>
+                        <div class="text-xl">à vista</div>
+                    </div>
+                    <button onclick="window.location.href='https://pay.sunize.com.br/jLvXxZwo'" class="btn-outline text-lg px-8 py-4 mb-4" style="background-color: white; color: hsl(262 83% 58%); border: none;">
+  Quero Recuperar Meu Tempo
+</button>
+
+                    <p class="text-sm opacity-90">Pagamento seguro</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="grid md:grid-cols-3 gap-4 mb-6">
+                        <div class="flex items-center justify-center space-x-2 text-gray-300">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12,6 12,12 16,14"></polyline>
+                            </svg>
+                            <span>7 dias de garantia</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2 text-gray-300">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                            </svg>
+                            <span>7 ferramentas dominadas</span>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2 text-gray-300">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span>7 horas recuperadas por semana</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">ou seu dinheiro de volta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="perguntas" class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Perguntas Frequentes</h2>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <div class="accordion-item">
+                        <button class="accordion-trigger text-white" onclick="toggleAccordion(this)">
+                            Preciso ter conhecimento técnico para aplicar o método FFF?
+                            <svg class="h-5 w-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="accordion-content">
+                            Não! O método FFF foi desenvolvido para ser aplicado por qualquer pessoa, independente do nível técnico. Todas as ferramentas são explicadas de forma didática e prática.
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger text-white" onclick="toggleAccordion(this)">
+                            Quanto tempo vou recuperar com as ferramentas ensinadas?
+                            <svg class="h-5 w-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="accordion-content">
+                            O método 777 promete recuperar no mínimo 7 horas por semana. Muitos alunos relatam economizar ainda mais tempo após dominar completamente as ferramentas.
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-trigger text-white" onclick="toggleAccordion(this)">
+                            Todas as ferramentas apresentadas são gratuitas?
+                            <svg class="h-5 w-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="accordion-content">
+                            A maioria das ferramentas possui versões gratuitas robustas. Para algumas funcionalidades avançadas, existem planos pagos, mas o curso ensina como maximizar o uso das versões gratuitas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Produtividade com IA</h3>
+                    <p class="text-gray-400">
+                        Recupere seu tempo e aumente sua produtividade com o método comprovado 7-7-7. Transforme sua relação com a tecnologia e reconquiste horas da sua semana.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Contato</h4>
+                    <p class="text-gray-400">contato@caioia.com</p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-white">Links Rápidos</h4>
+                    <div class="space-y-2">
+                        <a href="#problema" class="block text-gray-400 hover:text-white transition-colors">O Problema</a>
+                        <a href="#solucao" class="block text-gray-400 hover:text-white transition-colors">A Solução</a>
+                        <a href="#modulos" class="block text-gray-400 hover:text-white transition-colors">Os Módulos</a>
+                        <a href="#perguntas" class="block text-gray-400 hover:text-white transition-colors">FAQ</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>@2025 Caio Inteligência Artificial</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Productivity calculator
+        function updateCalculator() {
+            const hoursPerDay = parseInt(document.getElementById('hoursRange').value);
+            const daysPerWeek = parseInt(document.getElementById('daysRange').value);
+            const manualTasksPercent = parseInt(document.getElementById('manualRange').value);
+
+            // Update display values
+            document.getElementById('hoursValue').textContent = hoursPerDay + 'h';
+            document.getElementById('daysValue').textContent = daysPerWeek + ' dias';
+            document.getElementById('manualValue').textContent = manualTasksPercent + '%';
+
+            // Calculate results
+            const weeklyHours = hoursPerDay * daysPerWeek;
+            const wastedHours = (weeklyHours * manualTasksPercent) / 100;
+            const recoveredHours = Math.min(wastedHours * 0.7, 7); // Max 7 hours as promised
+            const yearlyDays = Math.round((recoveredHours * 52) / 8); // Convert to work days
+            const moneyValue = Math.round(recoveredHours * 50 * 52); // R$50/hour estimate
+
+            // Update results display
+            document.getElementById('hoursWasted').textContent = wastedHours.toFixed(1) + 'h';
+            document.getElementById('hoursRecovered').textContent = recoveredHours.toFixed(1) + 'h';
+            document.getElementById('daysPerYear').textContent = yearlyDays + ' dias';
+            document.getElementById('moneyValue').textContent = 'R$ ' + moneyValue.toLocaleString('pt-BR');
+        }
+
+        // Accordion functionality
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            
+            // Close all other accordions
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.classList.remove('active');
+                    item.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+                }
+            });
+            
+            // Toggle current accordion
+            content.classList.toggle('active');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+
+        // Initialize calculator on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCalculator();
+        });
+    </script>
+</body>
+</html>
